@@ -32,13 +32,22 @@ public class PatientController {
     public List<Patients> ViewPatient(){
         return (List<Patients>) dao.findAll();
     }
+    @CrossOrigin(origins = "*")
     @PostMapping(path = "/search",produces = "application/json", consumes = "application/json")
-    public List<Patients> SearchPatient(@RequestBody Patients p){
-        String patientid=p.getPatientid().toString();
+    public List<Patients> SearchPatient(@RequestBody Patients p)
+    {
+        String patientName=p.getPatientName().toString();
+        System.out.println(patientName);
+        return (List<Patients>) dao.SearchPatients(p.getPatientName());
+    }
+    @PostMapping(path = "/delete",consumes = "application/json", produces = "application/json")
+    public  HashMap<String,String> delete(@RequestBody Patients p)
+    {
+        String patientid=String.valueOf(p.getPatientid());
         System.out.println(patientid);
-        return (List<Patients>) dao.SearchPatients(p.getPatientid());
-
-
-
+        dao.deleteEmployees(p.getPatientName());
+        HashMap<String,String> map=new HashMap<>();
+        map.put("status","success");
+        return  map;
     }
 }
