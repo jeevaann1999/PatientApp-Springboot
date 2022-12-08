@@ -5,6 +5,7 @@ import com.nest.patientapp_backend.model.Patients;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.HashMap;
 import java.util.List;
 
 @RestController
@@ -30,5 +31,14 @@ public class PatientController {
     @GetMapping("/view")
     public List<Patients> ViewPatient(){
         return (List<Patients>) dao.findAll();
+    }
+    @PostMapping(path = "/search",produces = "application/json", consumes = "application/json")
+    public List<Patients> SearchPatient(@RequestBody Patients p){
+        String patientid=p.getPatientid().toString();
+        System.out.println(patientid);
+        return (List<Patients>) dao.SearchPatients(p.getPatientid());
+
+
+
     }
 }
