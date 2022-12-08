@@ -40,6 +40,7 @@ public class PatientController {
         System.out.println(patientName);
         return (List<Patients>) dao.SearchPatients(p.getPatientName());
     }
+    @CrossOrigin(origins = "*")
     @PostMapping(path = "/delete",consumes = "application/json", produces = "application/json")
     public  HashMap<String,String> delete(@RequestBody Patients p)
     {
